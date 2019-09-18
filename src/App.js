@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "semantic-ui-css/semantic.min.css";
 import { malls } from "./dummyData";
 
 const App = () => {
-  const [commodities, setCommodities] = useState(false);
-  const [categories, setCategories] = useState(false);
-  const [kedjor, setKedjor] = useState(false);
+  const [commodities, setCommodities] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [brands, setBrands] = useState([]);
+
+  useEffect(() => {
+    setCommodities(Object.keys(Object.values(malls)[0].commodities));
+    setCategories(Object.keys(Object.values(malls)[0].categories));
+    setBrands(Object.keys(Object.values(malls)[0].brands));
+  }, []);
 
   const renderColumnTitles = () => {
     return Object.values(malls).map(mall => {
@@ -13,8 +19,8 @@ const App = () => {
     });
   };
 
-  const renderMetaData = () => {
-    return Object.values(malls).map(mall => {
+  const renderSubHeaders = () => {
+    return Object.values(malls).map(() => {
       return (
         <>
           <th>Omsättning</th>
@@ -34,7 +40,27 @@ const App = () => {
     });
   };
 
-  const renderCommodityData = () => {};
+  const renderCommodityData = () => {
+    return commodities.map(commodity => {
+      return (
+        <tr>
+          <td>{commodity}</td>
+          {commodityData(commodity)}
+        </tr>
+      );
+    });
+  };
+
+  const commodityData = commodity => {
+    return Object.values(malls).map(mall => {
+      return (
+        <>
+          <td>{mall.commodities[commodity].revenue}</td>
+          <td>{mall.commodities[commodity].change}%</td>
+        </>
+      );
+    });
+  };
 
   const renderMallsInColumn = () => {
     return (
@@ -48,7 +74,7 @@ const App = () => {
 
             <tr>
               <th></th>
-              {renderMetaData()}
+              {renderSubHeaders()}
             </tr>
           </thead>
           <tbody>
@@ -56,6 +82,7 @@ const App = () => {
               <td>Totalt</td>
               {renderMallData()}
             </tr>
+            {renderCommodityData()}
           </tbody>
         </table>
       </div>
