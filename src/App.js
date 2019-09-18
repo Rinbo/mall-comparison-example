@@ -23,35 +23,23 @@ const App = () => {
       );
     });
   };
-
-  const renderTableBody = () => {
+  const renderMallData = () => {
     return Object.values(malls).map(mall => {
       return (
-        <tr>
-          <td>{mall.varugrupper["Beklädnad"].name}</td>
-          <td>{mall.kategorier["Kläder"].revenue}</td>
-          <td>{mall.kedjor["HM"].utveckling}</td>
-        </tr>
+        <>
+          <td>{mall.revenue}</td>
+          <td>{mall.change}%</td>
+        </>
       );
     });
   };
 
-  const renderColumnLeftMargin = () => {
-    return (
-      <tr>
-        <td>{commodities ? malls.mobilia.commodname : null}</td>
-        <td>{categories ? malls.mobilia.name : null}</td>
-        <td>{commodities ? malls.mobilia.name : null}</td>
-        <td>None</td>
-        <td>Resets rating to default value</td>
-      </tr>
-    );
-  };
+  const renderCommodityData = () => {};
 
   const renderMallsInColumn = () => {
     return (
       <div className="ui container" style={{ marginTop: 100 }}>
-        <table className="ui definition table">
+        <table className="ui celled definition table">
           <thead>
             <tr>
               <th></th>
@@ -63,7 +51,12 @@ const App = () => {
               {renderMetaData()}
             </tr>
           </thead>
-          <tbody>{renderTableBody()}</tbody>
+          <tbody>
+            <tr>
+              <td>Totalt</td>
+              {renderMallData()}
+            </tr>
+          </tbody>
         </table>
       </div>
     );
