@@ -17,6 +17,19 @@ export const randomPercentage = () => {
   return Math.ceil(Math.random() * 100) * trend;
 };
 
+export const alternatives = [
+  {
+    key: 1,
+    text: "Kolumnsegment",
+    value: "Kolumnsegment"
+  },
+  {
+    key: 2,
+    text: "Radsegment",
+    value: "Radsegment"
+  }
+];
+
 export const brands = [
   {
     key: "hm",
