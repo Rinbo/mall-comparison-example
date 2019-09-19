@@ -3,12 +3,6 @@ import "semantic-ui-css/semantic.min.css";
 import "./app.css";
 import ColumnAlternative from "./ColumnAlternative";
 import Selectors from "./Selectors";
-import {
-  INITIAL_MALLS,
-  INITIAL_COMMODITIES,
-  INITIAL_CATEGORIES,
-  INITIAL_BRANDS
-} from "./dummyData";
 
 const App = () => {
   const [malls, setMalls] = useState([]);
