@@ -1,26 +1,37 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "semantic-ui-css/semantic.min.css";
-import { malls } from "./dummyData";
+import { randomRevenue, randomPercentage } from "./dummyData";
 
 const App = () => {
-  const [commodities, setCommodities] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [brands, setBrands] = useState([]);
+  const INITIAL_MALLS = [
+    "Mobilia",
+    "Sickla",
+    "Farsta Centrum",
+    "Forum Gallerian"
+  ];
+  const INITIAL_COMMODITIES = ["Beklädnad", "Dagligvaror"];
+  const INITIAL_CATEGORIES = ["Kläder", "Livsmedel"];
+  const INITIAL_BRANDS = ["HM", "ICA Kvantum"];
 
-  useEffect(() => {
-    setCommodities(Object.keys(Object.values(malls)[0].commodities));
-    setCategories(Object.keys(Object.values(malls)[0].categories));
-    setBrands(Object.keys(Object.values(malls)[0].brands));
-  }, []);
+  const [malls, setMalls] = useState(INITIAL_MALLS);
+  const [commodities, setCommodities] = useState(INITIAL_COMMODITIES);
+  const [categories, setCategories] = useState(INITIAL_CATEGORIES);
+  const [brands, setBrands] = useState(INITIAL_BRANDS);
+
+  // useEffect(() => {
+  //   setCommodities(Object.keys(Object.values(dummyData)[0].commodities));
+  //   setCategories(Object.keys(Object.values(dummyData)[0].categories));
+  //   setBrands(Object.keys(Object.values(dummyData)[0].brands));
+  // }, []);
 
   const renderColumnTitles = () => {
-    return Object.values(malls).map(mall => {
-      return <th colSpan="2">{mall.name}</th>;
+    return malls.map(mall => {
+      return <th colSpan="2">{mall}</th>;
     });
   };
 
   const renderSubHeaders = () => {
-    return Object.values(malls).map(() => {
+    return malls.map(() => {
       return (
         <>
           <th>Omsättning</th>
@@ -30,11 +41,11 @@ const App = () => {
     });
   };
   const renderMallData = () => {
-    return Object.values(malls).map(mall => {
+    return malls.map(mall => {
       return (
         <>
-          <td>{mall.revenue}</td>
-          <td>{mall.change}%</td>
+          <td>{randomRevenue(100000)}</td>
+          <td>{randomPercentage(100000)}%</td>
         </>
       );
     });
@@ -45,24 +56,24 @@ const App = () => {
       return (
         <tr>
           <td>{commodity}</td>
-          {commodityData(commodity)}
+          {commodityData()}
         </tr>
       );
     });
   };
 
-  const commodityData = commodity => {
-    return Object.values(malls).map(mall => {
+  const commodityData = () => {
+    return malls.map(() => {
       return (
         <>
-          <td>{mall.commodities[commodity].revenue}</td>
-          <td>{mall.commodities[commodity].change}%</td>
+          <td>{randomRevenue(10000)}</td>
+          <td>{randomPercentage(10000)}%</td>
         </>
       );
     });
   };
 
-  const renderMallsInColumn = () => {
+  const renderMallInColumn = () => {
     return (
       <div className="ui container" style={{ marginTop: 100 }}>
         <table className="ui celled definition table">
@@ -89,7 +100,7 @@ const App = () => {
     );
   };
 
-  return renderMallsInColumn();
+  return renderMallInColumn();
 };
 
 export default App;
